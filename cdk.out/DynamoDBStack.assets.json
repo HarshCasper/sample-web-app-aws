@@ -1,19 +1,6 @@
 {
   "version": "36.0.0",
   "files": {
-    "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4": {
-      "source": {
-        "path": "asset.97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4",
-        "packaging": "zip"
-      },
-      "destinations": {
-        "current_account-current_region": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
-        }
-      }
-    },
     "4d273b9ad432251fa22eacbb3c05087eafa99c42ccedbb5202ea8e9d64e0cca9": {
       "source": {
         "path": "asset.4d273b9ad432251fa22eacbb3c05087eafa99c42ccedbb5202ea8e9d64e0cca9",
@@ -79,7 +66,7 @@
         }
       }
     },
-    "59419271e9748669b9ee7337ecbea625eb040898f68177aa55f4be4d525b1af0": {
+    "5e819f805d62a16bd0fdb44f86d5ab89a0406d35a91dae2b3fb492629378be95": {
       "source": {
         "path": "DynamoDBStack.template.json",
         "packaging": "file"
@@ -87,7 +74,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "59419271e9748669b9ee7337ecbea625eb040898f68177aa55f4be4d525b1af0.json",
+          "objectKey": "5e819f805d62a16bd0fdb44f86d5ab89a0406d35a91dae2b3fb492629378be95.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

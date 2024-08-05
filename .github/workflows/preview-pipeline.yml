@@ -14,14 +14,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           state-backend: ephemeral
-          lifetime: 60
           state-action: start
           include-preview: 'true'
-          # install-awslocal: 'true'
+          install-awslocal: 'true'
           preview-cmd: |
             npm install -g aws-cdk-local aws-cdk;
+            npm install;
             cdklocal bootstrap aws://000000000000/us-east-1;
-            cdklocal deploy;
+            cdklocal deploy --require-approval never;
             echo LS_PREVIEW_URL=$AWS_ENDPOINT_URL/cloudfront/$distributionId/ >> $GITHUB_ENV;
         env:
           LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}

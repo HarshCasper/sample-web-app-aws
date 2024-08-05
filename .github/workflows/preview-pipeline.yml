@@ -20,6 +20,7 @@ jobs:
           preview-cmd: |
             pushd ..;
             ls -a;
+            cd sample-web-app-aws;
             npm install -g aws-cdk-local aws-cdk;
             cdklocal bootstrap aws://000000000000/us-east-1;
             cdklocal deploy;

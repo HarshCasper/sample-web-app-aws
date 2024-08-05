@@ -25,12 +25,10 @@ jobs:
             npm install;
             cdklocal bootstrap aws://000000000000/us-east-1;
             cdklocal deploy --require-approval never;
+            table_name=$(awslocal dynamodb list-tables --query 'TableNames[0]' --output text)
             awslocal dynamodb put-item \
-            --table-name MyTable \
-            --item '{
-                "id": {"S": "message1"},
-                message": {"S": "You successfully received data from a DynamoDB table!"}
-            }'
+              --table-name "$table_name" \
+              --item '{"id": {"S": "message1"}, "message": {"S": "You successfully received data from a DynamoDB table!"}}'
             distributionId=$(awslocal cloudfront list-distributions | jq -r '.DistributionList.Items[0].Id');
             echo LS_PREVIEW_URL=$AWS_ENDPOINT_URL/cloudfront/$distributionId/ >> $GITHUB_ENV;
         env:

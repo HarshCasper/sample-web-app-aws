@@ -1,12 +1,12 @@
 name: 'Creat Preview on Push'
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
 jobs:
   localstack:
     name: Setup LocalStack Preview
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: LocalStack Preview
@@ -14,14 +14,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           state-backend: ephemeral
+          lifetime: 60
           state-action: start
           include-preview: 'true'
           # install-awslocal: 'true'
           preview-cmd: |
-            cd ..;
-            ls -a;
-            cd sample-web-app-aws;
-            ls -a;
             npm install -g aws-cdk-local aws-cdk;
             cdklocal bootstrap aws://000000000000/us-east-1;
             cdklocal deploy;

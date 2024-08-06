@@ -29,7 +29,7 @@ jobs:
 
       - name: Start LocalStack
         env:
-          DNS_ADDRESS: 0
+          DNS_ADDRESS: 1
           LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
         run: |
           pip install localstack

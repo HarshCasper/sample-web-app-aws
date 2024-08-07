@@ -9,19 +9,30 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: LocalStack Preview
         uses: LocalStack/setup-localstack@v0.2.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           state-backend: ephemeral
-          lifetime: 60
           state-action: start
           include-preview: 'true'
-          # install-awslocal: 'true'
+          install-awslocal: 'true'
           preview-cmd: |
             npm install -g aws-cdk-local aws-cdk;
+            npm install;
             cdklocal bootstrap aws://000000000000/us-east-1;
-            cdklocal deploy;
+            cdklocal deploy --require-approval never;
+            table_name=$(awslocal dynamodb list-tables --query 'TableNames[0]' --output text)
+            awslocal dynamodb put-item \
+              --table-name "$table_name" \
+              --item '{"id": {"S": "message1"}, "message": {"S": "You successfully received data from a DynamoDB table!"}}'
+            distributionId=$(awslocal cloudfront list-distributions | jq -r '.DistributionList.Items[0].Id');
             echo LS_PREVIEW_URL=$AWS_ENDPOINT_URL/cloudfront/$distributionId/ >> $GITHUB_ENV;
         env:
           LOCALSTACK_API_KEY: ${{ secrets.LOCALSTACK_API_KEY }}
+          EXTRA_CORS_ALLOWED_ORIGINS: '*'
+          DNS_ADDRESS: '1'
+

@@ -51,19 +51,19 @@ export class DynamoDBStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    // initialize the data in the dynamo table
-    new customResource.AwsCustomResource(this, 'initTable', {
-      onCreate: {
-        service: 'DynamoDB',
-        action: 'putItem',
-        parameters: {
-            TableName: table.tableName,
-            Item: { id: { S: "message1" }, message: { S: "You successfully received data from a DynamoDB table!" } }
-        },
-        physicalResourceId: customResource.PhysicalResourceId.of(table.tableName + '_initialization')
-      },
-      policy: customResource.AwsCustomResourcePolicy.fromSdkCalls({ resources: customResource.AwsCustomResourcePolicy.ANY_RESOURCE }),
-    });
+    // // initialize the data in the dynamo table
+    // new customResource.AwsCustomResource(this, 'initTable', {
+    //   onCreate: {
+    //     service: 'DynamoDB',
+    //     action: 'putItem',
+    //     parameters: {
+    //         TableName: table.tableName,
+    //         Item: { id: { S: "message1" }, message: { S: "You successfully received data from a DynamoDB table!" } }
+    //     },
+    //     physicalResourceId: customResource.PhysicalResourceId.of(table.tableName + '_initialization')
+    //   },
+    //   policy: customResource.AwsCustomResourcePolicy.fromSdkCalls({ resources: customResource.AwsCustomResourcePolicy.ANY_RESOURCE }),
+    // });
 
     // Create a Lambda function using the assets in the Lambda directory
     const lambdaFunction = new lambda.Function(this, 'HelloWorldFunction', {
